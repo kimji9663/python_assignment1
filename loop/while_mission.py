@@ -48,9 +48,9 @@ def sungjuk_process():
 
         if no == 1:
             # 추가
-            sno = input('번호 :')
+            sno = int(input('번호 :'))
             sname = input('이름 :')
-            score = input('점수 :')
+            score = int(input('점수 :'))
             new = [sno, sname, score]
             sungjuk_list.append(new)
             print(sungjuk_list)

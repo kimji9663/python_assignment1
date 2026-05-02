@@ -50,8 +50,10 @@ prompt = '' '
 함수명 : emp_process()
 '''
 
+import pickle
+
 def emp_process():
-    emp_list = {}
+    emp_list = {'200' : ['200', '홍길순', '851225-1234567', 'hong77@test.com', '010-1234-5678', 3800000, '대리', '개발팀']}
     prompt = '''
         *** 직원 정보 관리 서비스 ***
         1. 새 직원정보 추가
@@ -66,8 +68,48 @@ def emp_process():
         no = int(input('메뉴선택 :'))
 
         if no == 1:
-            pass # 1일때
+            # 입력
+            empid = input('사번 :')
+            empname = input('이름 :')
+            empno = input('주민번호 :')
+            email = input('이메일 :')
+            phone = input('전화번호 :')
+            salary = int(input('급여 :'))
+            job = input('직급 :')
+            dept = input('부서 :')
+            # 사번 : [사번, 이름, 주민번호, 이메일, 전화번호, 급여, 직급, 부서]
+            emp_list[empid] = [empid, empname, empno, email, phone, salary, job, dept]
+            print(f'{empid} : {[empid, empname, empno, email, phone, salary, job, dept]}')
+
         if no == 2:
-            pass # 2일때
+            # 삭제
+            del_empid = input('삭제할 사번 :')
+            emp_list.pop(del_empid)
+            print('200 번 사번의 직원 정보가 삭제되었습니다.')
+            # print(emp_list)
+
+        if no == 3:
+            # 전체 출력
+            keys = list(emp_list.keys())
+            # print(keys)
+            num = 0
+            while num < len(keys):
+                print(f'{keys[num]} : {emp_list[keys[num]]}')
+                num += 1
+        
+        if no == 4:
+            # dat로 저장
+            f = open('employees.dat', 'wb')
+            pickle.dump(emp_list, f)         
+            f.close()   
+            print('employees.dat 파일에 성공적으로 저장되었습니다.')
+        
+        if no == 5:
+            # dat 읽기
+            emp_dict = {}
+            f = open('employees.dat', 'rb')
+            emp_dict = pickle.load(f)
+            f.close()
+            print(emp_dict)
         if no == 9:
             break
